@@ -2,7 +2,7 @@ import plays from "./plays.json";
 import invoices from "./invoices.json";
 
 export default function index({invoice, plays}: { invoice: any, plays: any }) {
-  return renderPlainText();
+  return renderPlainText(invoice, plays);
 
   function usd(aNumber: number) {
     return new Intl.NumberFormat("en-US", {
@@ -67,7 +67,7 @@ export default function index({invoice, plays}: { invoice: any, plays: any }) {
     return totalAmount;
   }
 
-  function renderPlainText() {
+  function renderPlainText(invoice: { customer: any; performances: any; }, plays: any) {
     let result = `청구내역 (고객명: ${invoice.customer})\n`;
     for (let perf of invoice.performances) {
       // 청구 내역을 출력한다.
