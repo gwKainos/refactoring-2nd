@@ -1,7 +1,7 @@
 import plays from "./plays.json";
 import invoices from "./invoices.json";
 
-function index({invoice, plays}: { invoice: any, plays: any }) {
+export default function index({invoice, plays}: { invoice: any, plays: any }) {
   let totalAmount = 0;
   let volumeCredits = 0;
   let result = `청구내역 (고객명: ${invoice.customer})\n`;
