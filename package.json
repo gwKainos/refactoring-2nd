@@ -1,0 +1,29 @@
+{
+  "name": "refactoring-2nd",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "nodemon --exec ts-node src/index.ts",
+    "start": "node build/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gwKainos/refactoring-2nd.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gwKainos/refactoring-2nd/issues"
+  },
+  "homepage": "https://github.com/gwKainos/refactoring-2nd#readme",
+  "dependencies": {
+    "nodemon": "^3.1.9"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
+  }
+}
