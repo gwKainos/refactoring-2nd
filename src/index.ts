@@ -2,6 +2,8 @@ import plays from "./plays.json";
 import invoices from "./invoices.json";
 
 export default function index({invoice, plays}: { invoice: any, plays: any }) {
+  return renderPlainText();
+
   function usd(aNumber: number) {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
@@ -65,17 +67,19 @@ export default function index({invoice, plays}: { invoice: any, plays: any }) {
     return totalAmount;
   }
 
-  let result = `청구내역 (고객명: ${invoice.customer})\n`;
-  for (let perf of invoice.performances) {
-    // 청구 내역을 출력한다.
-    result += `${playFor(perf).name}: ${usd(amountFor(perf))} (${
-        perf.audience
-    }석)\n`;
-  }
+  function renderPlainText() {
+    let result = `청구내역 (고객명: ${invoice.customer})\n`;
+    for (let perf of invoice.performances) {
+      // 청구 내역을 출력한다.
+      result += `${playFor(perf).name}: ${usd(amountFor(perf))} (${
+          perf.audience
+      }석)\n`;
+    }
 
-  result += `총액: ${usd(totalAmount())}\n`;
-  result += `적립 포인트: ${totalVolumeCredits()}점\n`;
-  return result;
+    result += `총액: ${usd(totalAmount())}\n`;
+    result += `적립 포인트: ${totalVolumeCredits()}점\n`;
+    return result;
+  }
 }
 
 invoices.map((invoice) => console.log(index({invoice: invoice, plays: plays})));
