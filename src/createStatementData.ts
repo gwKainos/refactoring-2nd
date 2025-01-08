@@ -3,16 +3,29 @@ import { EnrichedPerformance, Invoice, Performance, StatementData } from "./type
 import { Play, Plays } from "./types/playTypes";
 import { IPerformanceCalculator } from "./types/interface";
 
-export function createStatementData(invoice: Invoice, plays: Plays) {
-  const statementData = {
-    customer: invoice.customer,
-    performances: invoice.performances.map(enrichPerformance),
-    totalAmount: 0,
-    totalVolumeCredits: 0
+class TragedyCalculator {
+  constructor(aPerformance: Performance, aPlay: Play) {
+    
   }
-  statementData.totalAmount = totalAmount(statementData);
-  statementData.totalVolumeCredits = totalVolumeCredits(statementData)
-  return statementData;
+
+}
+
+class ComedyCalculator {
+  constructor(aPerformance: Performance, aPlay: Play) {
+    
+  }
+
+}
+
+const createPerformanceCalculator = (aPerformance: Performance, aPlay: Play) => {
+  switch (aPlay.type) {
+    case 'tragedy':
+      return new TragedyCalculator(aPerformance, aPlay)
+    case 'comedy':
+      return new ComedyCalculator(aPerformance, aPlay)
+    default:
+      return new PerformanceCalculator(aPerformance, aPlay)
+  }
 }
 
 class PerformanceCalculator implements IPerformanceCalculator {
@@ -61,8 +74,20 @@ class PerformanceCalculator implements IPerformanceCalculator {
   }
 }
 
+export function createStatementData(invoice: Invoice, plays: Plays) {
+  const statementData = {
+    customer: invoice.customer,
+    performances: invoice.performances.map(enrichPerformance),
+    totalAmount: 0,
+    totalVolumeCredits: 0
+  }
+  statementData.totalAmount = totalAmount(statementData);
+  statementData.totalVolumeCredits = totalVolumeCredits(statementData)
+  return statementData;
+}
+
 function enrichPerformance(aPerformance: Performance): EnrichedPerformance {
-  const calculator = new PerformanceCalculator(aPerformance, playFor(aPerformance))
+  const calculator = createPerformanceCalculator(aPerformance, playFor(aPerformance))
   const result: any = Object.assign({}, aPerformance);
   result.play = playFor(result);
   result.amount = calculator.amount;
