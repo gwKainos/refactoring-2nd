@@ -13,15 +13,15 @@ export function statement(invoice:Invoice, plays:Plays): string {
     minimumFractionDigits: 2,
   }).format;
 
-  function volumeCreditsFor(perf: Performance) : number {
-    let volumeCredits = 0;
+  function volumeCreditsFor(aPerformance: Performance) : number {
+    let result = 0;
 
-    volumeCredits += Math.max(perf.audience - 30, 0);
-    if ("comedy" === playFor(perf).type) {
-      volumeCredits += Math.floor(perf.audience / 5);
+    result += Math.max(aPerformance.audience - 30, 0);
+    if ("comedy" === playFor(aPerformance).type) {
+      result += Math.floor(aPerformance.audience / 5);
     }
 
-    return volumeCredits;
+    return result;
   }
 
   for (let perf of invoice.performances) {
