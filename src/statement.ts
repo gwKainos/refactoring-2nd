@@ -14,8 +14,6 @@ export function statement(invoice:Invoice, plays:Plays): string {
   }).format;
 
   for (let perf of invoice.performances) {
-    let thisAmount = amountFor(perf);
-
     // 포인트를 적립한다.
     volumeCredits += Math.max(perf.audience - 30, 0);
 
