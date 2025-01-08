@@ -1,6 +1,7 @@
 import plays from "./plays.json";
 import { EnrichedPerformance, Invoice, Performance, StatementData } from "./types/invoiceTypes";
 import { Play, Plays } from "./types/playTypes";
+import { PerformanceCalculator } from "./types/interface";
 
 export function createStatementData(invoice: Invoice, plays: Plays) {
   const statementData = {
@@ -14,7 +15,18 @@ export function createStatementData(invoice: Invoice, plays: Plays) {
   return statementData;
 }
 
+class createPerformanceCalculator implements PerformanceCalculator {
+  performance: Performance;
+  play: Play;
+
+  constructor(aPerformance: Performance, aPlay: Play) {
+    this.performance = aPerformance;
+    this.play = aPlay;
+  }
+}
+
 function enrichPerformance(aPerformance: Performance): EnrichedPerformance {
+  const calculator = new createPerformanceCalculator(aPerformance, playFor(aPerformance))
   const result: any = Object.assign({}, aPerformance);
   result.play = playFor(result);
   result.amount = amountFor(result);
