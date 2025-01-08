@@ -6,9 +6,14 @@ import { Play, Plays } from "./types/playTypes";
 export function statement(invoice: Invoice, plays: Plays): string {
   const statementData = {
     customer: invoice.customer,
-    performances: invoice.performances,
+    performances: invoice.performances.map(enrichPerformance),
   }
   return renderPlainText(statementData, plays);
+
+  function enrichPerformance(aPerformance: Performance) {
+    const result = Object.assign({}, aPerformance);
+    return result
+  }
 
   function renderPlainText(data: any, plays: Plays) {
     let result = `청구내역 (고객명: ${data.customer})\n`;
