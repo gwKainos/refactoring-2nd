@@ -86,19 +86,11 @@ export function statement(invoice: Invoice, plays: Plays): string {
   }
 
   function totalVolumeCredits(data: StatementData): number {
-    let result = 0;
-    for (let perf of data.performances) {
-      result += perf.volumeCredits;
-    }
-    return result;
+    return data.performances.reduce((total, p) => total + p.volumeCredits, 0);
   }
 
   function totalAmount(data: StatementData): number {
-    let result = 0;
-    for (let perf of data.performances) {
-      result += amountFor(perf);
-    }
-    return result;
+    return data.performances.reduce((total, p) => total + p.amount, 0);
   }
 }
 
