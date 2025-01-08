@@ -3,30 +3,6 @@ import invoices from "./invoices.json";
 import {Invoice, Performance} from "./types/invoiceTypes";
 import {Play, Plays} from "./types/playTypes";
 
-function amountFor(play: Play, performance: Performance) {
-  let result = 0;
-
-  switch (play.type) {
-    case "tragedy":   // 비극
-      result = 40000;
-      if (performance.audience > 30) {
-        result += 1000 * (performance.audience - 30);
-      }
-      break;
-
-    case "comedy":   // 희극
-      result = 30000;
-      if (performance.audience > 20) {
-        result += 10000 + 500 * (performance.audience - 20);
-      }
-      result += 300 * performance.audience;
-      break;
-    default:
-      throw new Error(`알 수 없는 장르: ${play.type}`);
-  }
-  return result;
-}
-
 export function statement(invoice:Invoice, plays:Plays): string {
   let totalAmount = 0;
   let volumeCredits = 0;
@@ -36,10 +12,6 @@ export function statement(invoice:Invoice, plays:Plays): string {
     currency: "USD",
     minimumFractionDigits: 2,
   }).format;
-
-  function playFor(aPerformance: Performance) {
-    return plays[aPerformance.playID];
-  }
 
   for (let perf of invoice.performances) {
     let thisAmount = amountFor(playFor(perf), perf);
@@ -60,6 +32,35 @@ export function statement(invoice:Invoice, plays:Plays): string {
   result += `총액: ${format(totalAmount / 100)}\n`;
   result += `적립 포인트: ${volumeCredits}점\n`;
   return result;
+
+
+  function amountFor(play: Play, performance: Performance) {
+    let result = 0;
+
+    switch (play.type) {
+      case "tragedy":   // 비극
+        result = 40000;
+        if (performance.audience > 30) {
+          result += 1000 * (performance.audience - 30);
+        }
+        break;
+
+      case "comedy":   // 희극
+        result = 30000;
+        if (performance.audience > 20) {
+          result += 10000 + 500 * (performance.audience - 20);
+        }
+        result += 300 * performance.audience;
+        break;
+      default:
+        throw new Error(`알 수 없는 장르: ${play.type}`);
+    }
+    return result;
+  }
+
+  function playFor(aPerformance: Performance): Play {
+    return plays[aPerformance.playID];
+  }
 }
 
 export function start() {
