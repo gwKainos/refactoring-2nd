@@ -19,8 +19,7 @@ function enrichPerformance(aPerformance: Performance): EnrichedPerformance {
   result.play = playFor(result);
   result.amount = amountFor(result);
   result.volumeCredits = volumeCreditsFor(result);
-
-  return result
+  return result;
 }
 
 function amountFor(aPerformance: EnrichedPerformance) {
