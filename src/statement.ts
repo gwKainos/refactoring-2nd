@@ -1,19 +1,22 @@
 import plays from "./plays.json";
 import invoices from "./invoices.json";
-import {Invoice, Performance} from "./types/invoiceTypes";
-import {Play, Plays} from "./types/playTypes";
+import { Invoice, Performance } from "./types/invoiceTypes";
+import { Play, Plays } from "./types/playTypes";
 
-export function statement(invoice:Invoice, plays:Plays): string {
+export function statement(invoice: Invoice, plays: Plays): string {
   let totalAmount = 0;
   let volumeCredits = 0;
   let result = `청구내역 (고객명: ${invoice.customer})\n`;
-  const format = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 2,
-  }).format;
 
-  function volumeCreditsFor(aPerformance: Performance) : number {
+  function format(aNumber: number): string {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 2,
+    }).format(aNumber)
+  }
+
+  function volumeCreditsFor(aPerformance: Performance): number {
     let result = 0;
 
     result += Math.max(aPerformance.audience - 30, 0);
