@@ -5,42 +5,19 @@ import { Play, Plays } from "./types/playTypes";
 
 export function statement(invoice: Invoice, plays: Plays): string {
   let totalAmount = 0;
-  let volumeCredits = 0;
   let result = `청구내역 (고객명: ${invoice.customer})\n`;
 
-  function usd(aNumber: number): string {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: "USD",
-      minimumFractionDigits: 2,
-    }).format(aNumber / 100)
-  }
-
-  function volumeCreditsFor(aPerformance: Performance): number {
-    let result = 0;
-
-    result += Math.max(aPerformance.audience - 30, 0);
-    if ("comedy" === playFor(aPerformance).type) {
-      result += Math.floor(aPerformance.audience / 5);
-    }
-
-    return result;
-  }
-
   for (let perf of invoice.performances) {
-    volumeCredits += volumeCreditsFor(perf);
-
     // 청구 내역을 출력한다.
     result += `${playFor(perf).name}: ${usd(amountFor(perf))} (${
         perf.audience
     }석)\n`;
     totalAmount += amountFor(perf);
   }
-
+  
   result += `총액: ${usd(totalAmount)}\n`;
-  result += `적립 포인트: ${volumeCredits}점\n`;
+  result += `적립 포인트: ${totalVolumeCredits()}점\n`;
   return result;
-
 
   function amountFor(aPerformance: Performance) {
     let result = 0;
@@ -68,6 +45,33 @@ export function statement(invoice: Invoice, plays: Plays): string {
 
   function playFor(aPerformance: Performance): Play {
     return plays[aPerformance.playID];
+  }
+
+  function usd(aNumber: number): string {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 2,
+    }).format(aNumber / 100)
+  }
+
+  function volumeCreditsFor(aPerformance: Performance): number {
+    let result = 0;
+
+    result += Math.max(aPerformance.audience - 30, 0);
+    if ("comedy" === playFor(aPerformance).type) {
+      result += Math.floor(aPerformance.audience / 5);
+    }
+
+    return result;
+  }
+
+  function totalVolumeCredits() {
+    let volumeCredits = 0;
+    for (let perf of invoice.performances) {
+      volumeCredits += volumeCreditsFor(perf);
+    }
+    return volumeCredits;
   }
 }
 
