@@ -4,13 +4,16 @@ import { Invoice, Performance } from "./types/invoiceTypes";
 import { Play, Plays } from "./types/playTypes";
 
 export function statement(invoice: Invoice, plays: Plays): string {
-  const statementData = {}
-  return renderPlainText(statementData, invoice, plays);
+  const statementData = {
+    customer: invoice.customer,
+    performances: invoice.performances,
+  }
+  return renderPlainText(statementData, plays);
 
-  function renderPlainText(data: any, invoice: Invoice, plays: Plays) {
-    let result = `청구내역 (고객명: ${invoice.customer})\n`;
+  function renderPlainText(data: any, plays: Plays) {
+    let result = `청구내역 (고객명: ${data.customer})\n`;
 
-    for (let perf of invoice.performances) {
+    for (let perf of data.performances) {
       // 청구 내역을 출력한다.
       result += `${playFor(perf).name}: ${usd(amountFor(perf))} (${
           perf.audience
