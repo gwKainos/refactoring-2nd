@@ -23,7 +23,6 @@ function enrichPerformance(aPerformance: Performance): EnrichedPerformance {
   return result
 }
 
-
 function amountFor(aPerformance: EnrichedPerformance) {
   let result = 0;
 
