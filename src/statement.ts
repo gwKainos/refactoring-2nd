@@ -7,13 +7,18 @@ export function statement(invoice: Invoice, plays: Plays): string {
   const statementData = {
     customer: invoice.customer,
     performances: invoice.performances.map(enrichPerformance),
+    totalAmount: 0,
+    totalVolumeCredits: 0
   }
+  statementData.totalAmount = totalAmount(statementData);
+  statementData.totalVolumeCredits = totalVolumeCredits(statementData)
   return renderPlainText(statementData, plays);
 
   function enrichPerformance(aPerformance: Performance): EnrichedPerformance {
     const result: any = Object.assign({}, aPerformance);
     result.play = playFor(result);
     result.amount = amountFor(result);
+    result.volumeCredits = volumeCreditsFor(result);
 
     return result
   }
@@ -28,8 +33,8 @@ export function statement(invoice: Invoice, plays: Plays): string {
       }석)\n`;
     }
 
-    result += `총액: ${usd(totalAmount())}\n`;
-    result += `적립 포인트: ${totalVolumeCredits()}점\n`;
+    result += `총액: ${usd(data.totalAmount)}\n`;
+    result += `적립 포인트: ${data.totalVolumeCredits}점\n`;
     return result;
   }
 
@@ -80,17 +85,17 @@ export function statement(invoice: Invoice, plays: Plays): string {
     return result;
   }
 
-  function totalVolumeCredits(): number {
+  function totalVolumeCredits(data: StatementData): number {
     let result = 0;
-    for (let perf of statementData.performances) {
-      result += volumeCreditsFor(perf);
+    for (let perf of data.performances) {
+      result += perf.volumeCredits;
     }
     return result;
   }
 
-  function totalAmount(): number {
+  function totalAmount(data: StatementData): number {
     let result = 0;
-    for (let perf of statementData.performances) {
+    for (let perf of data.performances) {
       result += amountFor(perf);
     }
     return result;
