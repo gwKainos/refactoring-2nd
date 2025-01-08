@@ -1,7 +1,7 @@
 import { Performance } from "./invoiceTypes";
 import { Play } from "./playTypes";
 
-export interface PerformanceCalculator {
+export interface IPerformanceCalculator {
   performance: Performance;
   play: Play;
 }
