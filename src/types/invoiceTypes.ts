@@ -12,6 +12,7 @@ export type Invoice = {
 
 export type EnrichedPerformance = Performance & {
   play: Play;
+  amount: number;
 };
 
 export type StatementData = {

@@ -13,6 +13,7 @@ export function statement(invoice: Invoice, plays: Plays): string {
   function enrichPerformance(aPerformance: Performance): EnrichedPerformance {
     const result: any = Object.assign({}, aPerformance);
     result.play = playFor(result);
+    result.amount = amountFor(result);
 
     return result
   }
@@ -22,7 +23,7 @@ export function statement(invoice: Invoice, plays: Plays): string {
 
     for (let perf of data.performances) {
       // 청구 내역을 출력한다.
-      result += `${perf.play.name}: ${usd(amountFor(perf))} (${
+      result += `${perf.play.name}: ${usd(perf.amount)} (${
           perf.audience
       }석)\n`;
     }
@@ -81,7 +82,7 @@ export function statement(invoice: Invoice, plays: Plays): string {
 
   function totalVolumeCredits(): number {
     let result = 0;
-    for (let perf of invoice.performances) {
+    for (let perf of statementData.performances) {
       result += volumeCreditsFor(perf);
     }
     return result;
@@ -89,7 +90,7 @@ export function statement(invoice: Invoice, plays: Plays): string {
 
   function totalAmount(): number {
     let result = 0;
-    for (let perf of invoice.performances) {
+    for (let perf of statementData.performances) {
       result += amountFor(perf);
     }
     return result;
