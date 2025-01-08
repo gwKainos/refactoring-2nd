@@ -4,16 +4,20 @@ import { EnrichedPerformance, Invoice, Performance, StatementData } from "./type
 import { Play, Plays } from "./types/playTypes";
 
 export function statement(invoice: Invoice, plays: Plays): string {
-  const statementData = {
-    customer: invoice.customer,
-    performances: invoice.performances.map(enrichPerformance),
-    totalAmount: 0,
-    totalVolumeCredits: 0
-  }
-  statementData.totalAmount = totalAmount(statementData);
-  statementData.totalVolumeCredits = totalVolumeCredits(statementData)
-  return renderPlainText(statementData, plays);
+  return createStatementData(invoice, plays);
 
+  function createStatementData(invoice: Invoice, plays: Plays) {
+    const statementData = {
+      customer: invoice.customer,
+      performances: invoice.performances.map(enrichPerformance),
+      totalAmount: 0,
+      totalVolumeCredits: 0
+    }
+    statementData.totalAmount = totalAmount(statementData);
+    statementData.totalVolumeCredits = totalVolumeCredits(statementData)
+    return renderPlainText(statementData, plays);
+  }
+  
   function enrichPerformance(aPerformance: Performance): EnrichedPerformance {
     const result: any = Object.assign({}, aPerformance);
     result.play = playFor(result);
