@@ -14,7 +14,7 @@ export function statement(invoice:Invoice, plays:Plays): string {
   }).format;
 
   for (let perf of invoice.performances) {
-    let thisAmount = amountFor(playFor(perf), perf);
+    let thisAmount = amountFor(perf);
 
     // 포인트를 적립한다.
     volumeCredits += Math.max(perf.audience - 30, 0);
@@ -34,26 +34,26 @@ export function statement(invoice:Invoice, plays:Plays): string {
   return result;
 
 
-  function amountFor(play: Play, performance: Performance) {
+  function amountFor(aPerformance: Performance) {
     let result = 0;
 
-    switch (play.type) {
+    switch (playFor(aPerformance).type) {
       case "tragedy":   // 비극
         result = 40000;
-        if (performance.audience > 30) {
-          result += 1000 * (performance.audience - 30);
+        if (aPerformance.audience > 30) {
+          result += 1000 * (aPerformance.audience - 30);
         }
         break;
 
       case "comedy":   // 희극
         result = 30000;
-        if (performance.audience > 20) {
-          result += 10000 + 500 * (performance.audience - 20);
+        if (aPerformance.audience > 20) {
+          result += 10000 + 500 * (aPerformance.audience - 20);
         }
-        result += 300 * performance.audience;
+        result += 300 * aPerformance.audience;
         break;
       default:
-        throw new Error(`알 수 없는 장르: ${play.type}`);
+        throw new Error(`알 수 없는 장르: ${playFor(aPerformance).type}`);
     }
     return result;
   }
