@@ -1,9 +1,13 @@
-export default function printOwing(invoice) {
-  let outstanding = 0
-
+function printBanner() {
   console.log('*****************')
   console.log('**** 고객 채무 ****')
   console.log('*****************')
+}
+
+export default function printOwing(invoice) {
+  let outstanding = 0
+
+  printBanner();
 
   // 미해결 채무를 계산한다.
   for (const o of invoice.orders) {
