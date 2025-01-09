@@ -22,3 +22,11 @@ npm install --save-dev jest ts-jest @types/jest
 # jest.config.js 설정 파일 생성
 npx ts-jest config:init
 ```
+
+## Chapter 04. 테스트 구축하기
+```shell
+$ npm install --global mocha
+$ npm i -D mocha
+$ npm i -D chai
+```
+package.json에 "type": "module" 추가
