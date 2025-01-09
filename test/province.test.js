@@ -1,3 +1,6 @@
+import { expect } from "chai";
+import Province from "../src/province.js";
+
 function sampleProvinceData() {
   return {
     name: "Asia",
@@ -10,3 +13,10 @@ function sampleProvinceData() {
     price: 20,
   };
 }
+
+describe("province", function () {
+  it("shortfall", () => {
+    const asia = new Province(sampleProvinceData());
+    expect(asia.shortfall).equals(5)
+  });
+});
