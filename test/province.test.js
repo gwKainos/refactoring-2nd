@@ -28,4 +28,10 @@ describe("province", function () {
   it("profit", () => {
     expect(asia.profit).equals(230)
   });
+
+  it("change production", () => {
+    asia.producers[0].production = 20;
+    expect(asia.shortfall).equals(-6)
+    expect(asia.profit).equals(292)
+  });
 });
