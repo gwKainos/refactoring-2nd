@@ -16,17 +16,17 @@ function recordDueDate(invoice) {
       today.getDate() + 30)
 }
 
-export default function printOwing(invoice) {
+function calculateOutstanding(invoice) {
   let outstanding = 0
-
-  printBanner();
-
-  // 미해결 채무를 계산한다.
   for (const o of invoice.orders) {
     outstanding += o.amount
   }
+  return outstanding;
+}
 
+export default function printOwing(invoice) {
+  printBanner();
+  const outstanding = calculateOutstanding(invoice);
   recordDueDate(invoice);
-
   printDetails(invoice, outstanding);
 }
