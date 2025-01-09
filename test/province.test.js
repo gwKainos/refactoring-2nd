@@ -15,7 +15,12 @@ function sampleProvinceData() {
 }
 
 describe("province", function () {
-  const asia = new Province(sampleProvinceData());
+  let asia;
+
+  beforeEach(function () {
+    asia = new Province(sampleProvinceData());
+  })
+
   it("shortfall", () => {
     expect(asia.shortfall).equals(5)
   });
