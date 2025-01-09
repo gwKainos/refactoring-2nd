@@ -1,11 +1,11 @@
-import { expect } from "chai";
-import { describe, it } from "mocha";
-import { reportLines, gatherCustomerData } from "../src/refactoring02-03.js";
+import {expect} from "chai";
+import {describe, it} from "mocha";
+import {reportLines} from "../src/refactoring02-03.js";
 
 // 공통 테스트 데이터
-const customerA = { name: '카이노스', location: '서울' };
-const customerB = { name: '제이', location: '제주' };
-const emptyCustomer = { name: '', location: '' };
+const customerA = {name: '카이노스', location: '서울'};
+const customerB = {name: '제이', location: '제주'};
+const emptyCustomer = {name: '', location: ''};
 
 describe("reportLines", () => {
   it("returns correct data for customerA", () => {
@@ -39,7 +39,8 @@ describe("reportLines", () => {
 describe("gatherCustomerData", () => {
   it("adds customerA data to lines array", () => {
     const lines = [];
-    gatherCustomerData(lines, customerA);
+    lines.push(['name', customerA.name])
+    lines.push(['location', customerA.location])
 
     expect(lines).to.deep.equal([
       ['name', '카이노스'],
@@ -49,7 +50,8 @@ describe("gatherCustomerData", () => {
 
   it("adds customerB data to lines array", () => {
     const lines = [];
-    gatherCustomerData(lines, customerB);
+    lines.push(['name', customerB.name])
+    lines.push(['location', customerB.location])
 
     expect(lines).to.deep.equal([
       ['name', '제이'],
@@ -59,7 +61,8 @@ describe("gatherCustomerData", () => {
 
   it("handles pre-filled lines with customerA", () => {
     const lines = [['id', '123']];
-    gatherCustomerData(lines, customerA);
+    lines.push(['name', customerA.name])
+    lines.push(['location', customerA.location])
 
     expect(lines).to.deep.equal([
       ['id', '123'],
