@@ -1,6 +1,6 @@
-import { expect } from "chai";
-import { describe, it } from "mocha";
-import {moreThanFiveLateDeliveries, rating} from "../src/refactoring02.js";
+import {expect} from "chai";
+import {describe, it} from "mocha";
+import { rating} from "../src/refactoring02.js";
 
 // 테스트 코드
 describe("rating", () => {
@@ -20,13 +20,13 @@ describe("rating", () => {
 describe("moreThanFiveLateDeliveries", () => {
   it("returns true if > 5 late deliveries", () => {
     const driver = { numberOfLateDeliveries: 6 };
-    const result = moreThanFiveLateDeliveries(driver);
+    const result = driver.numberOfLateDeliveries > 5;
     expect(result).to.be.true;
   });
 
   it("returns false if <= 5 late deliveries", () => {
     const driver = { numberOfLateDeliveries: 5 };
-    const result = moreThanFiveLateDeliveries(driver);
+    const result = driver.numberOfLateDeliveries > 5;
     expect(result).to.be.false;
   });
 });
