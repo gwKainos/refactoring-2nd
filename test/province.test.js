@@ -19,4 +19,9 @@ describe("province", function () {
     const asia = new Province(sampleProvinceData());
     expect(asia.shortfall).equals(5)
   });
+
+  it("profit", () => {
+    const asia = new Province(sampleProvinceData());
+    expect(asia.profit).equals(230)
+  });
 });
