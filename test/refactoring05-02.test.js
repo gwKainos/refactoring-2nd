@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { describe, it } from "mocha";
-import { inNewEngland } from "../src/refactoring05-02.js";
+import {inNewEngland} from "../src/refactoring05-02.js";
 
 describe("inNewEngland", () => {
   it("returns true for a customer in New England", () => {
@@ -19,7 +19,10 @@ describe("inNewEngland", () => {
   });
 
   it("returns false for a customer with no address", () => {
-    const customer = {};
+    const customer = {
+      name: 'Paul',
+      address: { state: 'AA' },
+    };
     expect(inNewEngland(customer)).to.be.false;
   });
 });
