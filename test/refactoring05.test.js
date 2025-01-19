@@ -7,7 +7,7 @@ describe("Book", () => {
     const book = new Book();
     const customer = { id: 1, name: "Alice" };
 
-    book.addReservation(customer);
+    book.zz_addReservation(customer, false); // isPriority 추가
 
     const reservations = book.getReservations();
     expect(reservations).to.have.lengthOf(1);
@@ -19,8 +19,8 @@ describe("Book", () => {
     const customer1 = { id: 1, name: "Alice" };
     const customer2 = { id: 2, name: "Bob" };
 
-    book.addReservation(customer1);
-    book.addReservation(customer2);
+    book.zz_addReservation(customer1, false); // 기본 우선순위
+    book.zz_addReservation(customer2, true);  // 높은 우선순위
 
     const reservations = book.getReservations();
     expect(reservations).to.have.lengthOf(2);
@@ -32,8 +32,8 @@ describe("Book", () => {
     const book = new Book();
     const customer = { id: 1, name: "Alice" };
 
-    book.addReservation(customer);
-    book.addReservation(customer); // 중복 예약 허용
+    book.zz_addReservation(customer, false);
+    book.zz_addReservation(customer, true); // 중복 허용
 
     const reservations = book.getReservations();
     expect(reservations).to.have.lengthOf(2); // 중복 추가 확인
@@ -45,7 +45,7 @@ describe("Book", () => {
     const book = new Book();
     const customer = { id: 1, name: "Alice" };
 
-    book.addReservation(customer);
+    book.zz_addReservation(customer, true); // 우선순위 예약
 
     const reservations = book.getReservations();
     reservations[0].customer.name = "Changed"; // 복사본 변경
