@@ -12,8 +12,12 @@ export class Order {
     return (
         this.basePrice -
         this.quantityDiscount +
-        Math.min(this.basePrice * 0.1, 100)
+        this.shipping
     )
+  }
+
+  get shipping() {
+    return Math.min(this.basePrice * 0.1, 100);
   }
 
   get quantityDiscount() {
