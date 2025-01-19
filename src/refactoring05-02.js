@@ -1,9 +1,5 @@
-export const xxNewEngland = stateCode => {
+export const inNewEngland = stateCode => {
   return ['MA', 'CT', 'ME', 'VT', 'NH', 'RI'].includes(stateCode);
-}
-
-export const inNewEngland = aCustomer => {
-  return xxNewEngland(aCustomer.address.state);
 }
 
 const someCustomers = [
@@ -17,6 +13,6 @@ const someCustomers = [
   }
 ]
 
-const newEnglanders = someCustomers.filter(c => xxNewEngland(c.address.state))
+const newEnglanders = someCustomers.filter(c => inNewEngland(c.address.state))
 
 console.info(newEnglanders)
