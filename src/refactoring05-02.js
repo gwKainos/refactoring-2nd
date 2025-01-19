@@ -3,8 +3,7 @@ function xxNewEngland(stateCode) {
 }
 
 export const inNewEngland = aCustomer => {
-  const stateCode = aCustomer.address.state;
-  return xxNewEngland(stateCode);
+  return xxNewEngland(aCustomer.address.state);
 }
 
 const newEnglanders = someCustomers.filter(c => inNewEngland(c))
