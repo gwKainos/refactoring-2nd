@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { describe, it } from "mocha";
-import {inNewEngland} from "../src/refactoring05-02.js";
+import {inNewEngland} from "../../src/chapter06/refactoring05-02.js";
 
 describe("inNewEngland", () => {
   it("returns true for a customer in New England", () => {

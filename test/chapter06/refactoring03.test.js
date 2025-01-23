@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { describe, it } from "mocha";
-import { price } from "../src/refactoring03.js";
+import { price } from "../../src/chapter06/refactoring03.js";
 
 // 공통 테스트 데이터
 const testCases = [

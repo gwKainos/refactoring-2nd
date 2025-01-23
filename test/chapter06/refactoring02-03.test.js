@@ -1,6 +1,6 @@
 import {expect} from "chai";
 import {describe, it} from "mocha";
-import {reportLines} from "../src/refactoring02-03.js";
+import {reportLines} from "../../src/chapter06/refactoring02-03.js";
 
 // 공통 테스트 데이터
 const customerA = {name: '카이노스', location: '서울'};

@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon src/index.js",
+    "start": "nodemon src/chapter06/index.js",
     "test": "mocha test/*.test.js"
   },
   "repository": {

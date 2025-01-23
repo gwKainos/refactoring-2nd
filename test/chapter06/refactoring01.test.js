@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import sinon from "sinon";
-import printOwing from "../src/refactoring01.js";
+import printOwing from "../../src/chapter06/refactoring01.js";
 
 function customerData() {
   return {
