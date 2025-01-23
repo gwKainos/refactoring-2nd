@@ -4,13 +4,15 @@ import {defaultOwner, setDefaultOwner} from "../../src/chapter06/refactoring06.j
 describe('DefaultOwner', () => {
   it('should return the correct default owner', () => {
     const owner = defaultOwner();
-    expect(owner).to.have.property('firstName', '레베카');
-    expect(owner).to.have.property('lastName', '파슨스');
-  });
+    expect(owner).to.have.property('firstName', '마틴');
+    expect(owner).to.have.property('lastName', '파울러');
+  })
 
   it('should return a new object each time', () => {
     const owner1 = defaultOwner();
     const owner2 = defaultOwner();
+    console.dir( owner1);
+    console.dir(owner2);
     owner1.firstName = '변경됨';
     expect(owner1.firstName).to.not.equal(owner2.firstName);
   });
