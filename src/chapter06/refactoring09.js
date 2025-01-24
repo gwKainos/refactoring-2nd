@@ -9,22 +9,30 @@ function acquireReading() {
 
 class Reading {
   constructor(data) {
-    this._customer = data.customer
-    this._quantity = data.quantity
-    this._month = data.month
-    this._year = data.year
+    this._customer = data.customer;
+    this._quantity = data.quantity;
+    this._month = data.month;
+    this._year = data.year;
   }
+
   get customer() {
-    return this._customer
+    return this._customer;
   }
+
   get quantity() {
-    return this._quantity
+    return this._quantity;
   }
+
   get month() {
-    return this._month
+    return this._month;
   }
+
   get year() {
-    return this._year
+    return this._year;
+  }
+
+  get baseCharge() {
+    return baseRate(this.month, this.year) * this.quantity;
   }
 }
 
@@ -42,7 +50,8 @@ function taxThreshold(year) {
   return 7;
 }
 
-const aReading = acquireReading();
+const rawReading = acquireReading();
+const aReading = new Reading(rawReading);
 
 // 클라이언트 1
 const baseCharge = (baseRate(aReading.month, aReading.year) * aReading.quantity);
@@ -52,13 +61,10 @@ const base = (baseRate(aReading.month, aReading.year) * aReading.quantity);
 const taxableCharge = Math.max(0, base - taxThreshold(aReading.year));
 
 // 클라이언트 3
-const basicChargeAmount = calculateBaseCharge(aReading);
-function calculateBaseCharge(aReading) {
-  return baseRate(aReading.month, aReading.year) * aReading.quantity;
-}
+const basicChargeAmount = aReading.baseCharge;
 
-console.info("baseCharge" + baseCharge);
-console.info("taxableCharge" + taxableCharge);
-console.info("basicChargeAmount" + basicChargeAmount);
+console.info("baseCharge: " + baseCharge);
+console.info("taxableCharge: " + taxableCharge);
+console.info("basicChargeAmount: " + basicChargeAmount);
 
-export {acquireReading, baseRate, taxThreshold, calculateBaseCharge};
+export { acquireReading, baseRate, taxThreshold, Reading };

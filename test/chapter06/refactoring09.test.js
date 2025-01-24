@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { acquireReading, baseRate, taxThreshold, calculateBaseCharge } from '../../src/chapter06/refactoring09.js';
+import { acquireReading, baseRate, taxThreshold, Reading } from '../../src/chapter06/refactoring09.js';
 
 describe('Reading Tests', () => {
   it('should correctly acquire a reading', () => {
@@ -39,8 +39,9 @@ describe('Reading Tests', () => {
   });
 
   it('should calculate basicChargeAmount using calculateBaseCharge function', () => {
-    const reading = acquireReading();
-    const basicChargeAmount = calculateBaseCharge(reading);
+    const rawReading = acquireReading();
+    const aReading = new Reading(rawReading);
+    const basicChargeAmount = aReading.baseCharge;
 
     expect(basicChargeAmount).to.equal(0.5);
   });
