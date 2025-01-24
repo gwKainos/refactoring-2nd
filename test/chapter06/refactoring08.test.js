@@ -6,7 +6,7 @@ describe('readingsOutsideRange Tests', () => {
     const min = 50;
     const max = 58;
     const range = new NumberRange(min, max);
-    const alerts = readingsOutsideRange(station, min, max, range);
+    const alerts = readingsOutsideRange(station, range);
 
     expect(alerts).to.have.lengthOf(1); // 47만 범위 밖에 있음
     expect(alerts).to.deep.include({ temp: 47, time: '2016-11-10 09:10' });
@@ -16,7 +16,7 @@ describe('readingsOutsideRange Tests', () => {
     const min = 40;
     const max = 60;
     const range = new NumberRange(min, max);
-    const alerts = readingsOutsideRange(station, min, max, range);
+    const alerts = readingsOutsideRange(station, range);
 
     expect(alerts).to.be.an('array').that.is.empty; // 모든 값이 범위 내
   });
@@ -25,7 +25,7 @@ describe('readingsOutsideRange Tests', () => {
     const min = 60;
     const max = 70;
     const range = new NumberRange(min, max);
-    const alerts = readingsOutsideRange(station, min, max, range);
+    const alerts = readingsOutsideRange(station, range);
 
     expect(alerts).to.have.lengthOf(5); // 모든 값이 범위 밖
     expect(alerts).to.deep.include.members(station.readings);
@@ -36,7 +36,7 @@ describe('readingsOutsideRange Tests', () => {
     const min = 50;
     const max = 58;
     const range = new NumberRange(min, max);
-    const alerts = readingsOutsideRange(emptyStation, min, max, range);
+    const alerts = readingsOutsideRange(emptyStation, range);
 
     expect(alerts).to.be.an('array').that.is.empty; // 빈 배열 반환
   });
