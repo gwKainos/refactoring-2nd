@@ -54,11 +54,15 @@ const rawReading = acquireReading();
 const aReading = new Reading(rawReading);
 
 // 클라이언트 1
-const baseCharge = (baseRate(aReading.month, aReading.year) * aReading.quantity);
+const baseCharge = aReading.baseCharge;
 
 // 클라이언트 2
 const base = (baseRate(aReading.month, aReading.year) * aReading.quantity);
-const taxableCharge = Math.max(0, base - taxThreshold(aReading.year));
+const taxableCharge = taxableChargeFn();
+
+function taxableChargeFn() {
+  return Math.max(0, base - taxThreshold(aReading.year));
+}
 
 // 클라이언트 3
 const basicChargeAmount = aReading.baseCharge;
