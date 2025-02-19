@@ -11,7 +11,8 @@ function acquireReading() {
 
 function enrichReading(original) {
   const result = _.cloneDeep(original);
-  result.baseCharge = calculateBaseCharge(result);
+  result.baseCharge = calculateBaseCharge(result)
+  result.texableCharge = Math.max(0, result.baseCharge - taxThreshold(result.year));
   return result;
 }
 
@@ -33,8 +34,7 @@ function taxThreshold(year) {
 const client1 = () => {
   const rawReading = acquireReading();
   const aReading = enrichReading(rawReading);
-  const baseCharge = (baseRate(aReading.month, aReading.year) * aReading.quantity);
-  return baseCharge;
+  return aReading.baseCharge;
 }
 
 
@@ -42,23 +42,20 @@ const client1 = () => {
 const client2 = () => {
   const rawReading = acquireReading();
   const aReading = enrichReading(rawReading);
-  const base = (baseRate(aReading.month, aReading.year) * aReading.quantity);
-  const taxableCharge = Math.max(0, base - taxThreshold(aReading.year));
-  return taxableCharge;
+  return aReading.texableCharge;
 }
-
 
 // 클라이언트 3
 const client3 = () => {
   const rawReading = acquireReading();
   const aReading = enrichReading(rawReading);
-  const basicChargeAmount = aReading.baseCharge;
-
-  return basicChargeAmount;
+  return aReading.baseCharge;
 }
 
 function calculateBaseCharge(aReading) {
   return baseRate(aReading.month, aReading.year) * aReading.quantity;
 }
+
+[client1, client2, client3].forEach(c => console.info(c()));
 
 export {acquireReading, baseRate, taxThreshold};
