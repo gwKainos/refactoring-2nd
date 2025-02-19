@@ -11,6 +11,7 @@ function acquireReading() {
 
 function enrichReading(original) {
   const result = _.cloneDeep(original);
+  result.baseCharge = calculateBaseCharge(result);
   return result;
 }
 
@@ -51,7 +52,7 @@ const client2 = () => {
 const client3 = () => {
   const rawReading = acquireReading();
   const aReading = enrichReading(rawReading);
-  const basicChargeAmount = calculateBaseCharge(aReading);
+  const basicChargeAmount = aReading.baseCharge;
 
   return basicChargeAmount;
 }
