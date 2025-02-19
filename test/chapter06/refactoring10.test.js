@@ -1,5 +1,9 @@
-import { expect } from 'chai';
-import { acquireReading, baseRate, taxThreshold, Reading } from '../../src/chapter06/refactoring09.js';
+import {expect} from 'chai';
+import {
+  acquireReading,
+  baseRate,
+  taxThreshold
+} from '../../src/chapter06/refactoring10.js';
 
 describe('Reading Tests', () => {
   it('should correctly acquire a reading', () => {
@@ -36,13 +40,5 @@ describe('Reading Tests', () => {
     const taxableCharge = Math.max(0, base - taxThreshold(reading.year));
 
     expect(taxableCharge).to.equal(0); // Math.max(0, 0.5 - 5) = 0
-  });
-
-  it('should calculate basicChargeAmount using calculateBaseCharge function', () => {
-    const rawReading = acquireReading();
-    const aReading = new Reading(rawReading);
-    const basicChargeAmount = aReading.baseCharge;
-
-    expect(basicChargeAmount).to.equal(0.5);
   });
 });

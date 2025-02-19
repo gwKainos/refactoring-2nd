@@ -21,23 +21,33 @@ function taxThreshold(year) {
   return 7;
 }
 
-const aReading = acquireReading();
-
 // 클라이언트 1
-const baseCharge = (baseRate(aReading.month, aReading.year) * aReading.quantity);
+const client1 = () => {
+  const aReading = acquireReading();
+  const baseCharge = (baseRate(aReading.month, aReading.year) * aReading.quantity);
+  return baseCharge;
+}
+
 
 // 클라이언트 2
-const base = (baseRate(aReading.month, aReading.year) * aReading.quantity);
-const taxableCharge = Math.max(0, base - taxThreshold(aReading.year));
+const client2 = () => {
+  const aReading = acquireReading();
+  const base = (baseRate(aReading.month, aReading.year) * aReading.quantity);
+  const taxableCharge = Math.max(0, base - taxThreshold(aReading.year));
+  return taxableCharge;
+}
+
 
 // 클라이언트 3
-const basicChargeAmount = calculateBaseCharge(aReading);
+const client3 = () => {
+  const aReading = acquireReading();
+  const basicChargeAmount = calculateBaseCharge(aReading);
+
+  return basicChargeAmount;
+}
+
 function calculateBaseCharge(aReading) {
   return baseRate(aReading.month, aReading.year) * aReading.quantity;
 }
 
-console.info("baseCharge" + baseCharge);
-console.info("taxableCharge" + taxableCharge);
-console.info("basicChargeAmount" + basicChargeAmount);
-
-export {acquireReading, baseRate, taxThreshold, calculateBaseCharge};
+export {acquireReading, baseRate, taxThreshold};
